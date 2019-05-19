@@ -4,6 +4,11 @@ title: Clearbit looking for a backend engineer
 categories: 
 tags: backend
 layout: job
+header-image: clearbit.png
+
+color-header: ffffff
+color-body: f5f9fc
+color-accent: 2c99f8
 ---
 
 
@@ -29,7 +34,7 @@ As an early engineer at Clearbit, you'll have a huge impact on our product and d
 - Implement clever monitoring to check the health of the data ingestion platform
 - Work on integrations with third-party systems like BigQuery and AWS services
 
-## Perks
+### Perks
 - Health, dental, vision, and commuter benefits for you and your family
 - Cell phone and gym membership reimbursement
 - Flexible work hours
@@ -43,7 +48,7 @@ As an early engineer at Clearbit, you'll have a huge impact on our product and d
 We do not discriminate on the basis of race, religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or disability status.
 
 
-## Requirements
+### Requirements
 5+ years of backend programming experience
 2+ years of experience in Ruby
 Experience with Go

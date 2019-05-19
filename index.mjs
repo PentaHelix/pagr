@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { run, getPage } from './pagr.mjs'
+import { run, getPage } from './pagr/index.mjs'
 
 const app = express()
 

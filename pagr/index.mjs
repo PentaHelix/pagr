@@ -50,6 +50,7 @@ function parsePage (filename) {
       filename: filename.split('/')[1].split('.')[0],
       html
     }
+    // BUG: when removing a property from the yaml metadata and the watcher is triggered, the markdown does not get rendered
   })
 }
 

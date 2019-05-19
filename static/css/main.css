@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Lato|Roboto+Condensed&display=swap');
-
+@import url('https://fonts.googleapis.com/css?family=Crete+Round|Karla&display=swap');
 * {
   margin: 0;
   padding: 0;
-  font-family: Lato;
+  font-family: Karla;
 }
 
-p {
-  font-family: Roboto Condensed;
+h1, h2, h3, h4, h5, h6 {
+  font-family: Crete Round;
 }

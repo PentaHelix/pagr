@@ -5,8 +5,30 @@
     <link rel='stylesheet' type='text/css' href='static/css/main.css'/>
     <link rel='stylesheet' type='text/css' href='static/css/job.css'/>
     <link rel='stylesheet' type='text/css' href='static/css/{{_FILENAME_}}.css'/>
+    <style>
+      body {
+        background-color: #{{color-body}};
+      }
+      
+      #header {
+        background-color: #{{color-header}};
+      }
+
+      #job-content ul li::before {
+        background-color: #{{color-accent}};
+      }
+
+      #job-content h1, #job-content h2, #job-content h3, #job-content h4 {
+        color: #{{color-accent}};
+      }
+    </style>
   </head>
   <body>
-    {{{ _HTML_ }}}
+    <div id='header'>
+      <img src='static/img/{{header-image}}' />
+    </div>
+    <div id='job-content'>
+      {{{ _HTML_ }}}
+    </div>
   </body>
 </html>
