@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{{_FILENAME_}}</title>
+  <link rel='stylesheet' type='text/css' href='/static/css/simplemde.css'>
+  <link rel='stylesheet' type='text/css' href='/static/css/main.css'>
+  <link rel='stylesheet' type='text/css' href='/static/css/job.css'>
+  <link rel='stylesheet' type='text/css' href='/static/css/pagr_edit.css'>
+  <script src='/static/js/simplemde.js'></script>
+  <script src='/static/js/keymaster.js'></script>
+  <script>
+    var simplemde;
+    key.filter = function () {return true;}
+    key('alt+shift+e', function () {
+      window.location.href = '/{{_URL_}}'
+    })
+
+    key('ctrl+s', function () {
+      var xhr = new XMLHttpRequest()
+      xhr.open('POST', '/admin/page?file={{_FILENAME_}}')
+      xhr.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
+      xhr.addEventListener('load', function (e) {
+
+      })
+      xhr.send(JSON.stringify({content: simplemde.value()}))
+      return false
+    })
+
+    window.onload = function () {
+      simplemde = new SimpleMDE();
+      simplemde.value(`{{_CONTENT_}}`);
+    }
+  </script>
+</head>
+<body>
+  <textarea></textarea>
+</body>
+</html>

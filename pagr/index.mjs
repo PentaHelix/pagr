@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 import chokidar from 'chokidar'
 import mdit from 'markdown-it'
 import meta from 'markdown-it-meta'
@@ -10,6 +11,7 @@ md.use(meta)
 
 export const layouts = []
 export const pages = []
+export let edit = null;
 
 const _urls = []
 
@@ -26,6 +28,18 @@ export function run () {
 
   watcher.on('add', path => parsePage(path))
   watcher.on('change', path => parsePage(path))
+
+  fs.readFile(path.resolve() + '/pagr/web/edit.html', (err, data) => {
+    edit = handlebars.compile(data.toString())
+  })
+}
+
+export function getPageFile (filename) {
+  return pages[_urls['pages/' + filename + '.md']].raw
+}
+
+export function getPageUrl (filename) {
+  return _urls['pages/' + filename + '.md']
 }
 
 export function getPage (name) {
@@ -48,6 +62,7 @@ function parsePage (filename) {
     pages[_urls[filename]] = {
       meta: md.meta,
       filename: filename.split('/')[1].split('.')[0],
+      raw: data.toString(),
       html
     }
     // BUG: when removing a property from the yaml metadata and the watcher is triggered, the markdown does not get rendered
