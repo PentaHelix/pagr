@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { run, pages } from './pagr.mjs'
+import { run, getPage } from './pagr.mjs'
 
 const app = express()
 
@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
 
 app.get('/*', (req, res) => {
   if (pages[req.path.substr(1)]) {
-    res.send(pages[req.path.substr(1)].html)
+    res.send(getPage(req.path.substr(1)))
   } else {
     res.send('404')
   }
