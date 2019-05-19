@@ -8,23 +8,17 @@ import handlebars from 'handlebars'
 const md = new mdit()
 md.use(meta)
 
-export const templates = []
+export const layouts = []
 export const pages = []
 
 const _urls = []
 
 export function run () {
-  // fs.readdir('./pages', (err, files) => {
-  //   files.forEach(file => {
-  //     parsePage('./pages/' + file)
-  //   });
-  // });
-
   fs.readdir('./layouts', (err, files) => {
     files.forEach(file => {
       parseLayout('./layouts/' + file)
-    });
-  });
+    })
+  })
 
   const watcher = chokidar.watch('./pages', {
     persistent: true
@@ -35,15 +29,17 @@ export function run () {
 }
 
 export function getPage (name) {
-  let meta = pages[name]
-  layouts[meta.layout]({
+  if (!pages[name]) throw new Error ('Page not found')
+  let meta = pages[name].meta
+  return layouts[meta.layout]({
     ...meta,
     _HTML_: pages[name].html
   })
 }
 
 function parsePage (filename) {
-  fs.readFile(filename, (err, data) => {
+  console.log(filename)
+  fs.readFile('./' + filename, (err, data) => {
     const html = md.render(data.toString())
     if (_urls[filename]) {
       pages[_urls[filename]] = undefined
@@ -57,7 +53,7 @@ function parsePage (filename) {
 }
 
 function parseLayout (filename) {
-  s.readFile(filename, (err, data) => {
-    layouts[filename.split('.')[0]] = handlebars.compile(data.toString())
+  fs.readFile(filename, (err, data) => {
+    layouts[filename.split('/')[2].split('.')[0]] = handlebars.compile(data.toString())
   })
 }

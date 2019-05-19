@@ -4,15 +4,17 @@ import { run, getPage } from './pagr.mjs'
 
 const app = express()
 
+app.use('/static', express.static('static'));
+
 app.get('/', (req, res) => {
   res.send('hello world')
 })
 
 app.get('/*', (req, res) => {
-  if (pages[req.path.substr(1)]) {
+  try {
     res.send(getPage(req.path.substr(1)))
-  } else {
-    res.send('404')
+  } catch (err) {
+    res.sendStatus(404)
   }
 })
 
