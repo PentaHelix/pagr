@@ -33,12 +33,12 @@ export function getPage (name) {
   let meta = pages[name].meta
   return layouts[meta.layout]({
     ...meta,
+    _FILENAME_: pages[name].filename,
     _HTML_: pages[name].html
   })
 }
 
 function parsePage (filename) {
-  console.log(filename)
   fs.readFile('./' + filename, (err, data) => {
     const html = md.render(data.toString())
     if (_urls[filename]) {
@@ -47,6 +47,7 @@ function parsePage (filename) {
     _urls[filename] = md.meta.url
     pages[_urls[filename]] = {
       meta: md.meta,
+      filename: filename.split('/')[1].split('.')[0],
       html
     }
   })
