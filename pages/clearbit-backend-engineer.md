@@ -23,7 +23,7 @@ As innovators in this field, we regularly work on solving sophisticated technica
 This opportunity is on-site in San Francisco or remote from a US timezone.
 
 ## Open Position: Backend Software Engineer
-As an early engineer at Clearbit, you&amp;#x27;ll have a huge impact on our product and direction. You&amp;#x27;ll be working very closely with the rest of our team, building and maintaining data pipelines that will handle large amounts of data. Working on our data ingestion pipeline, you will be able to work with cutting-edge tech while caring for performance and scalability. You will be highly independent and autonomous.
+As an early engineer at Clearbit, you'll have a huge impact on our product and direction. You'll be working very closely with the rest of our team, building and maintaining data pipelines that will handle large amounts of data. Working on our data ingestion pipeline, you will be able to work with cutting-edge tech while caring for performance and scalability. You will be highly independent and autonomous.
 
 ### Responsibilities:
 - Collaborate on designing and building a new data platform for ingesting a high-volume of events
@@ -39,7 +39,7 @@ As an early engineer at Clearbit, you&amp;#x27;ll have a huge impact on our prod
 - Cell phone and gym membership reimbursement
 - Flexible work hours
 - Regular compensation reviews
-- Lunch &amp;amp; snacks
+- Lunch &amp;amp;amp;amp; snacks
 - Open vacation policy
 - Regular company retreats
 - Equity in a fast-growing startup
@@ -55,10 +55,10 @@ Experience with Go
 Experience with Kafka is a plus
 Knowledge around testing and monitoring data systems
 Experience in architecture, building, and operating systems to solve problems at a high scale
-Independent and self motivated —- maintaining side projects and libraries a major plus
+Independent and self motivated -- maintaining side projects and libraries a major plus
 Ability to hack things together quickly
 
 ## Interview Process
-Apply via this webpage.
-If your experience matches our requirements, we will have a rbeif recruiter screening.
+Apply via this web page.
+If your experience matches our requirements, we will have a brief recruiter screening.
 Other Steps forthcoming.

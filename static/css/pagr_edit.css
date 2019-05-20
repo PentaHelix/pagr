@@ -1,3 +1,75 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+}
+
+.editor .editor-toolbar {
+  border-radius: 0;
+}
+
 .CodeMirror {
+  height: calc(100vh - 103px);
+}
+
+.sidebar {
+  flex: 0 0 300px;
+  height: 100%;
+}
+
+.sidebar .switcher {
+  height: 35px;
+  width: 100%;
+  display: flex;
+  cursor: pointer;
+}
+
+.switcher .tab {
+  flex: 1;
+  text-align: center;
+  background: #b0bec5;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffffff;
+  padding: 6px;
+  font-family: monospace;
+}
+
+.switcher .tab.active {
+  background: #1e88e5;
+}
+
+.sidebar .file {
+  width: 100%;
+  height: 25px;
+  padding: 4px;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.sidebar .dropzone {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border: 1px dashed #ccc;
+  width: 300px;
+  height: 200px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.sidebar .dropzone span {
+  padding: 80px;
+  display: block;
+}
+
+.sidebar .dz-preview {
+  display: none;
+}
+
+.editor {
+  flex: 1;
   height: 600px;
 }
