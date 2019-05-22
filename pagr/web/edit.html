@@ -9,6 +9,10 @@
   <link rel='stylesheet' type='text/css' href='/static/css/main.css'>
   <link rel='stylesheet' type='text/css' href='/static/css/job.css'>
   <link rel='stylesheet' type='text/css' href='/static/css/pagr_edit.css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/css/uikit.min.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit-icons.min.js"></script>
   <script src='/static/js/simplemde.js'></script>
   <script src='/static/js/keymaster.js'></script>
   <script src='/static/js/dropzone.js'></script>
@@ -20,16 +24,25 @@
       window.location.href = '/{{_URL_}}'
     })
 
-    key('ctrl+s', function () {
+    key('ctrl+s', save)
+
+    function save () {
       var xhr = new XMLHttpRequest()
       xhr.open('POST', '/admin/page?file={{_FILENAME_}}')
       xhr.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
       xhr.addEventListener('load', function (e) {
-
+        if (xhr.status == 200) {
+          UIkit.notification('Saved')
+        } else {
+          UIkit.modal.prompt('Session expired<br>Password:', '').then(function(val) {
+            document.cookie = 'password='+val+';'
+            save()
+          })
+        }
       })
       xhr.send(JSON.stringify({content: simplemde.value()}))
       return false
-    })
+    }
 
 
     Dropzone.options.dropzone = {
