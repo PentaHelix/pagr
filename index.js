@@ -1,11 +1,9 @@
-import express from 'express'
-
-import { run, getPage, getPageFile, getPageUrl, edit } from './pagr/index.mjs'
-import fs from 'fs'
-import bodyParser from 'body-parser'
-import fileUpload from 'express-fileupload'
-import crypto from 'crypto'
-import cookieParser from 'cookie-parser'
+const express = require('express')
+const pagr = require('./pagr/index.js')
+const fs = require('fs')
+const bodyParser = require('body-parser')
+const fileUpload = require('express-fileupload')
+const cookieParser = require('cookie-parser')
 
 const app = express()
 
@@ -26,7 +24,7 @@ app.post('/admin/*', (req, res, next) => {
 
 app.get('/admin/create', (req, res) => {
   fs.readdir('./static/img', (_, files) => {
-    res.send(edit({
+    res.send(pagr.edit({
       _IMAGE_FILES_: JSON.stringify(files),
       _CONTENT_: '', 
       _URL_: '',
@@ -39,11 +37,11 @@ app.get('/admin/edit', (req, res) => {
   req.query.file = req.query.file.replace(/(\/|\.)/, '')
   
   fs.readdir('./static/img', (_, files) => {
-    res.send(edit({
+    res.send(pagr.edit({
       _IMAGE_FILES_: JSON.stringify(files),
       _FILENAME_: req.query.file,
-      _CONTENT_: getPageFile(req.query.file), 
-      _URL_: getPageUrl(req.query.file)
+      _CONTENT_: pagr.getPageFile(req.query.file), 
+      _URL_: pagr.getPageUrl(req.query.file)
     }))
   })
 })
@@ -71,7 +69,7 @@ app.post('/admin/upload', (req, res) => {
 
 app.get('/*', (req, res) => {
   try {
-    res.send(getPage(req.path.substr(1)))
+    res.send(pagr.getPage(req.path.substr(1)))
   } catch (err) {
     res.sendStatus(404)
   }
@@ -79,6 +77,6 @@ app.get('/*', (req, res) => {
 
 
 app.listen(3000, () => {
-  run()
+  pagr.run()
   console.log('pagr started')
 })

@@ -1,49 +1,55 @@
-import fs from 'fs'
-import path from 'path'
-import chokidar from 'chokidar'
-import mdit from 'markdown-it'
-import meta from 'markdown-it-meta'
-import normalizePath from 'normalize-path'
-
-import handlebars from 'handlebars'
-
+const fs = require('fs')
+const path = require('path')
+const chokidar = require('chokidar')
+const mdit = require('markdown-it')
+const meta = require('markdown-it-meta')
+const normalizePath = require('normalize-path')
+const handlebars = require('handlebars')
 const md = new mdit()
 md.use(meta)
 
-export const layouts = []
-export const pages = []
-export let edit = null;
+const layouts = []
+const pages = []
+
+module.exports.layouts = layouts
+module.exports.pages = pages
+module.exports.edit = null
 
 const _urls = []
 
-export function run () {
+function run () {
   fs.readdir('./layouts', (err, files) => {
     files.forEach(file => {
       parseLayout('./layouts/' + file)
     })
   })
-
+  
   const watcher = chokidar.watch('./pages', {
     persistent: true
   });
-
+  
   watcher.on('add', path => parsePage(path))
   watcher.on('change', path => parsePage(path))
-
+  
   fs.readFile(path.resolve() + '/pagr/web/edit.html', (err, data) => {
-    edit = handlebars.compile(data.toString())
+    module.exports.edit = handlebars.compile(data.toString())
   })
 }
 
-export function getPageFile (filename) {
+module.exports.run = run
+
+function getPageFile (filename) {
   return pages[_urls[filename]].raw
 }
+module.exports.getPageFile = getPageFile
 
-export function getPageUrl (filename) {
+function getPageUrl (filename) {
   return _urls[filename]
 }
 
-export function getPage (name) {
+module.exports.getPageUrl = getPageUrl
+
+function getPage (name) {
   if (!pages[name]) throw new Error ('Page not found')
   let meta = pages[name].meta
   return layouts[meta.layout]({
@@ -52,6 +58,7 @@ export function getPage (name) {
     _HTML_: pages[name].html
   })
 }
+module.exports.getPage = getPage
 
 function parsePage (filename) {
   filename = normalizePath(filename)
