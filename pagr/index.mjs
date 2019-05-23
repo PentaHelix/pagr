@@ -3,6 +3,7 @@ import path from 'path'
 import chokidar from 'chokidar'
 import mdit from 'markdown-it'
 import meta from 'markdown-it-meta'
+import normalizePath from 'normalize-path'
 
 import handlebars from 'handlebars'
 
@@ -53,9 +54,9 @@ export function getPage (name) {
 }
 
 function parsePage (filename) {
-  filename = path.normalize(filename)
+  filename = normalizePath(filename)
   fs.readFile('./' + filename, (err, data) => {
-    filename = filename.split('\\')[1].split('.')[0]
+    filename = filename.split('/')[1].split('.')[0]
     let html
     try {
       html = md.render(data.toString())
@@ -65,7 +66,6 @@ function parsePage (filename) {
     if (_urls[filename]) {
       pages[_urls[filename]] = undefined
     }
-    console.log(filename)
     _urls[filename] = md.meta.url
     
     pages[_urls[filename]] = {
@@ -79,8 +79,8 @@ function parsePage (filename) {
 }
 
 function parseLayout (filename) {
-  filename = path.normalize(filename)
+  filename = normalizePath(filename)
   fs.readFile(filename, (err, data) => {
-    layouts[filename.split('\\')[1].split('.')[0]] = handlebars.compile(data.toString())
+    layouts[filename.split('/')[1].split('.')[0]] = handlebars.compile(data.toString())
   })
 }
