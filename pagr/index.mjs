@@ -57,7 +57,6 @@ function parsePage (filename) {
   filename = normalizePath(filename)
   fs.readFile('./' + filename, (err, data) => {
     filename = filename.split('/')[1].split('.')[0]
-    console.log(filename)
     let html
     try {
       html = md.render(data.toString())

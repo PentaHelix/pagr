@@ -16,19 +16,23 @@
   <script src='/static/js/simplemde.js'></script>
   <script src='/static/js/keymaster.js'></script>
   <script src='/static/js/dropzone.js'></script>
+  <script src='/static/js/main.js'></script>
   <script>
     var image_files = {{{_IMAGE_FILES_}}}
     var simplemde;
+
+    var filename = '{{_FILENAME_}}'
+    var url = '{{_URL_}}'
     key.filter = function () {return true;}
     key('alt+shift+e', function () {
-      window.location.href = '/{{_URL_}}'
+      window.location.href = `/${url}`
     })
 
     key('ctrl+s', save)
 
     function save () {
       var xhr = new XMLHttpRequest()
-      xhr.open('POST', '/admin/page?file={{_FILENAME_}}')
+      xhr.open('PUT', `/admin/page?file=${filename}`)
       xhr.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
       xhr.addEventListener('load', function (e) {
         if (xhr.status == 200) {
@@ -40,6 +44,45 @@
           })
         }
       })
+      xhr.send(JSON.stringify({content: simplemde.value()}))
+      url = /\nurl: ?(.*)/.exec(simplemde.value())[1]
+      return false
+    }
+
+    function create (name) {
+      var xhr = new XMLHttpRequest()
+      xhr.open('POST', `/admin/page?file=${name}`)
+      xhr.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
+      xhr.addEventListener('load', function (e) {
+        if (xhr.status == 200) {
+          UIkit.notification('Created')
+          filename = name;
+        } else {
+          UIkit.modal.prompt('Session expired<br>Password:', '').then(function(val) {
+            document.cookie = 'password='+val+';'
+            create(name)
+          })
+        }
+      })
+      simplemde.value(`---
+url: urlname
+title: page title
+categories: 
+tags: 
+layout: job
+header-image: 
+typeform: 
+
+color-header: ffffff
+color-body: f5f9fc
+color-accent: 2c99f8
+
+og-image: 
+og-title: 
+og-description: 
+sm-slug: 
+---
+`)
       xhr.send(JSON.stringify({content: simplemde.value()}))
       return false
     }
@@ -61,6 +104,16 @@
         
         makeFileEl(file)
       }
+      if (!getCookie('password')) {
+        UIkit.modal.prompt('Login<br>Password:', '').then(function(val) {
+          document.cookie = 'password='+val+';'
+        })
+      }
+      {{#if _CREATING_}}
+      UIkit.modal.prompt('Filename (without extension):', '').then(function(val) {
+        create(val)
+      })
+      {{/if}}
     }
 
     function makeFileEl(name) {

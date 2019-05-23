@@ -55,12 +55,14 @@
 @media screen and (max-width: 850px) {
   #header {
     text-align: center;
-    height: 50vw;
+    height: unset;
   }
   
   #header img {
-    margin: 5vw;
-    max-height: 40vw;
+    margin: 5vw auto;
+    min-width: 20vw;
+    max-width: 80vw;
+    height: auto;
     /* max-width: 80vw; */
   }
   
@@ -96,8 +98,4 @@
   #job-content h3 {
     font-size: 5vw;
   }
-}
-
-@media screen and (max-width: 800px) {
-  
 }
