@@ -10,6 +10,11 @@ typeform: https://codeforcash.typeform.com/to/Ylxi2P
 color-header: ffffff
 color-body: f5f9fc
 color-accent: 2c99f8
+
+og-image: https://codefor.cash/img/logo-purple.png
+og-title: Backend Software Engineer
+og-description: "Job: Backend Software Engineer at Clearbit in CA or remote"
+sm-slug: Work as a Software Engineer at a rapidly growing data-driven marketing company
 ---
 
 

@@ -35,11 +35,11 @@ export function run () {
 }
 
 export function getPageFile (filename) {
-  return pages[_urls['pages/' + filename + '.md']].raw
+  return pages[_urls[filename]].raw
 }
 
 export function getPageUrl (filename) {
-  return _urls['pages/' + filename + '.md']
+  return _urls[filename]
 }
 
 export function getPage (name) {
@@ -53,15 +53,24 @@ export function getPage (name) {
 }
 
 function parsePage (filename) {
+  filename = path.normalize(filename)
   fs.readFile('./' + filename, (err, data) => {
-    const html = md.render(data.toString())
+    filename = filename.split('\\')[1].split('.')[0]
+    let html
+    try {
+      html = md.render(data.toString())
+    } catch (e) {
+      html = "Error while rendering page: " + e.message
+    }
     if (_urls[filename]) {
       pages[_urls[filename]] = undefined
     }
+    console.log(filename)
     _urls[filename] = md.meta.url
+    
     pages[_urls[filename]] = {
       meta: md.meta,
-      filename: filename.split('/')[1].split('.')[0],
+      filename,
       raw: data.toString(),
       html
     }
@@ -70,7 +79,8 @@ function parsePage (filename) {
 }
 
 function parseLayout (filename) {
+  filename = path.normalize(filename)
   fs.readFile(filename, (err, data) => {
-    layouts[filename.split('/')[2].split('.')[0]] = handlebars.compile(data.toString())
+    layouts[filename.split('\\')[1].split('.')[0]] = handlebars.compile(data.toString())
   })
 }
