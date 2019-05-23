@@ -67,6 +67,7 @@ app.post('/admin/upload', (req, res) => {
 
 app.get('/*', (req, res) => {
   try {
+    console.log(getPage(req.path.substr(1)))
     res.send(getPage(req.path.substr(1)))
   } catch (err) {
     res.sendStatus(404)

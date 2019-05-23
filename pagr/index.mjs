@@ -57,6 +57,7 @@ function parsePage (filename) {
   filename = normalizePath(filename)
   fs.readFile('./' + filename, (err, data) => {
     filename = filename.split('/')[1].split('.')[0]
+    console.log(filename)
     let html
     try {
       html = md.render(data.toString())
@@ -81,6 +82,6 @@ function parsePage (filename) {
 function parseLayout (filename) {
   filename = normalizePath(filename)
   fs.readFile(filename, (err, data) => {
-    layouts[filename.split('/')[1].split('.')[0]] = handlebars.compile(data.toString())
+    layouts[filename.split('/')[2].split('.')[0]] = handlebars.compile(data.toString())
   })
 }
